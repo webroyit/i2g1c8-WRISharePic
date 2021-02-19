@@ -1,3 +1,9 @@
 * {
   margin: 0;
 }
+
+.app__headerImage {
+  /* Keep the ratio of the image.  Prevent the image from being stretched */
+  object-fit: contain;
+  width: 160px;
+}
