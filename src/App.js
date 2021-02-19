@@ -1,5 +1,6 @@
 
 import './App.css';
+import Post from './components/Post'
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
           src="images/logo.png"
           alt="Logo" />
       </div>
-      <h1>WRI Share Pic</h1>
+      <Post />
     </div>
   );
 }
