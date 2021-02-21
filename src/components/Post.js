@@ -1,11 +1,18 @@
 import React from 'react'
+import Avatar from "@material-ui/core/Avatar"
 
 import './Post.css'
 
 function Post() {
     return (
         <div className="post">
-            <h3>Username</h3>
+            <div className="post__header">
+                <Avatar
+                    className="post__avatar"
+                    alt="Ken Car"
+                    src="1" />
+                <h3>Ken Car</h3>
+            </div>
 
             <img
                 className="post__image"
