@@ -12,6 +12,8 @@ function App() {
           alt="Logo" />
       </div>
       <Post />
+      <Post />
+      <Post />
     </div>
   );
 }
