@@ -13,7 +13,10 @@ function App() {
     // 'onSnapshot' is a listener
     db.collection('posts').onSnapshot(snapshot => {
       // Every time a new post is added, this code fires
-      setPosts(snapshot.docs.map(doc => doc.data()))
+      setPosts(snapshot.docs.map(doc => ({
+        id: doc.id,
+        post: doc.data()
+      })))
     })
   }, [])
 
@@ -27,9 +30,10 @@ function App() {
       </div>
 
       {
-        posts.map((post, index) => (
+        // Destructor id and post from post
+        posts.map(({id, post}) => (
           <Post
-            key={index}
+            key={id}
             imageUrl={post.imageUrl}
             username={post.username}
             caption={post.caption} />
