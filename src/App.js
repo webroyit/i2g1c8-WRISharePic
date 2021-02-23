@@ -45,7 +45,7 @@ function App() {
   useEffect(() => {
     // This is a listener on firebase
     // It uses cookie tracking to check if the user is logged in
-    auth.onAuthStateChanged(authUser => {
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
       if (authUser) {
         // User is logged in
         console.log(authUser);
@@ -65,6 +65,13 @@ function App() {
         setUser(null);
       }
     })
+
+    return () => {
+      // Perform some cleanup actions
+
+      // Remove listener when finish
+      unsubscribe();
+    }
   }, [user, username]);
 
   // Runs a piece of code based on a specific condition
