@@ -4,7 +4,7 @@ import { Modal, Input, Button } from '@material-ui/core';
 
 import './App.css';
 import Post from './components/Post';
-import { db } from './firebase';
+import { auth, db } from './firebase';
 
 function getModalStyle() {
   const top = 50;
@@ -39,6 +39,33 @@ function App() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
+
+  // Listener for the front end
+  useEffect(() => {
+    // This is a listener on firebase
+    // It uses cookie tracking to check if the user is logged in
+    auth.onAuthStateChanged(authUser => {
+      if (authUser) {
+        // User is logged in
+        console.log(authUser);
+        setUser(authUser);
+
+        if (authUser.displayName) {
+          // Don't update username
+        } else {
+          // For new user
+          // Update username name
+          return authUser.updateProfile({
+            displayName: username
+          })
+        }
+      } else {
+        // User is logged out
+        setUser(null);
+      }
+    })
+  }, [user, username]);
 
   // Runs a piece of code based on a specific condition
   useEffect(() => {
@@ -52,7 +79,7 @@ function App() {
         post: doc.data()
       })))
     })
-  }, [])
+  }, []);
 
   return (
     <div className="App">
@@ -87,7 +114,7 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
 
-            <Button>Sign Up</Button>
+            <Button type="submit">Sign Up</Button>
           </form>
         </div>
       </Modal>
