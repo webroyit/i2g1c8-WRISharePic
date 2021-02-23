@@ -51,15 +51,15 @@ function App() {
         console.log(authUser);
         setUser(authUser);
 
-        if (authUser.displayName) {
-          // Don't update username
-        } else {
-          // For new user
-          // Update username name
-          return authUser.updateProfile({
-            displayName: username
-          })
-        }
+        // if (authUser.displayName) {
+        //   // Don't update username
+        // } else {
+        //   // For new user
+        //   // Update username name
+        //   return authUser.updateProfile({
+        //     displayName: username
+        //   })
+        // }
       } else {
         // User is logged out
         setUser(null);
@@ -87,6 +87,19 @@ function App() {
       })))
     })
   }, []);
+
+  const signUp = event => {
+    event.preventDefault();
+     
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        return authUser.user.updateProfile({
+          displayName: username
+        })
+      })
+      .catch((error) => alert(error.message))
+  }
 
   return (
     <div className="App">
@@ -121,7 +134,7 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
 
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit" onClick={signUp}>Sign Up</Button>
           </form>
         </div>
       </Modal>
