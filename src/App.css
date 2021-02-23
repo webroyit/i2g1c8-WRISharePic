@@ -6,7 +6,7 @@
   background-color: #e7ecf0;
 }
 
-.app__header{
+.app__header {
   background-color: white;
   border-bottom: 1px solid lightblue;
   padding: 5px;
@@ -16,4 +16,9 @@
   /* Keep the ratio of the image.  Prevent the image from being stretched */
   object-fit: contain;
   width: 160px;
+}
+
+.app__signup {
+  display: flex;
+  flex-direction: column;
 }

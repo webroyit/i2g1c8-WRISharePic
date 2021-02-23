@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Modal, Button } from '@material-ui/core';
+import { Modal, Input, Button } from '@material-ui/core';
 
 import './App.css';
 import Post from './components/Post';
@@ -36,6 +36,9 @@ function App() {
 
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   // Runs a piece of code based on a specific condition
   useEffect(() => {
@@ -58,7 +61,34 @@ function App() {
         onClose={() => setOpen(false)}
       >
         <div style={modalStyle} className={classes.paper}>
-          <h2>Text in a modal</h2>
+          <form className="app__signup">
+            <center>
+              <img
+                className="app__headerImage"
+                src="images/logo.png"
+                alt="Logo" />
+            </center>
+
+            <Input
+              placeholder="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)} />
+
+            <Input
+              placeholder="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} />
+
+            <Input
+              placeholder="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} />
+
+            <Button>Sign Up</Button>
+          </form>
         </div>
       </Modal>
 
@@ -70,7 +100,7 @@ function App() {
       </div>
 
       <Button onClick={() => setOpen(true)}>Sign Up</Button>
-      
+
       {
         // Destructor id and post from post
         posts.map(({id, post}) => (
