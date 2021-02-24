@@ -99,7 +99,24 @@ function App() {
           displayName: username
         })
       })
-      .catch((error) => alert(error.message))
+      .catch((error) => alert(error.message));
+
+    setOpen(false);
+  }
+
+  const signIn = event => {
+    event.preventDefault();
+     
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(authUser => {
+        return authUser.user.updateProfile({
+          displayName: username
+        })
+      })
+      .catch((error) => alert(error.message));
+    
+    setOpenSignIn(false);
   }
 
   return (
@@ -165,7 +182,7 @@ function App() {
               value={password}
               onChange={(e) => setPassword(e.target.value)} />
 
-            <Button type="submit">Sign In</Button>
+            <Button type="submit" onClick={signIn}>Sign In</Button>
           </form>
         </div>
       </Modal>
