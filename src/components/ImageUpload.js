@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
 
+import { db, storage } from '../firebase';
+
 function ImageUpload() {
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
@@ -13,6 +15,12 @@ function ImageUpload() {
         }
     }
 
+    const handleUpload = () => {
+        // 'ref' for the location to store the image on firebase
+        // 'put' to store the image on firebase
+        const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    }
+
     return (
         <div>
             <input
@@ -21,7 +29,7 @@ function ImageUpload() {
                 onChange={event => setCaption(event.target.value)}
                 value={caption} />
             <input type="file" onChange={handleChange} />
-            <Button>
+            <Button onClick={handleUpload}>
                 Upload
             </Button>
         </div>
