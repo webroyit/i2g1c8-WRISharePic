@@ -4,6 +4,7 @@ import { Modal, Input, Button } from '@material-ui/core';
 
 import './App.css';
 import Post from './components/Post';
+import ImageUpload from './components/ImageUpload';
 import { auth, db } from './firebase';
 
 function getModalStyle() {
@@ -121,6 +122,8 @@ function App() {
 
   return (
     <div className="App">
+      <ImageUpload />
+
       <Modal
         open={open}
         onClose={() => setOpen(false)}
