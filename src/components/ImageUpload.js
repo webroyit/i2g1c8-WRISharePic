@@ -65,6 +65,7 @@ function ImageUpload({ username }) {
 
     return (
         <div>
+            <progress value={progress} />
             <input
                 type="text"
                 placeholder="Enter a caption..."
@@ -74,7 +75,6 @@ function ImageUpload({ username }) {
             <Button onClick={handleUpload}>
                 Upload
             </Button>
-            <p>{progress}</p>
         </div>
     )
 }
