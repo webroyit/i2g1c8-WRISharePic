@@ -80,13 +80,18 @@ function App() {
   useEffect(() => {
     // This is where the code runs
 
-    // 'onSnapshot' is a listener
-    db.collection('posts').onSnapshot(snapshot => {
-      // Every time a new post is added, this code fires
-      setPosts(snapshot.docs.map(doc => ({
-        id: doc.id,
-        post: doc.data()
-      })))
+    // Get list of posts from firebase
+    db
+      .collection('posts')
+      // sort the posts by timestamp
+      .orderBy('timestamp', 'desc')
+      // 'onSnapshot' is a listener
+      .onSnapshot(snapshot => {
+        // Every time a new post is added, this code fires
+        setPosts(snapshot.docs.map(doc => ({
+          id: doc.id,
+          post: doc.data()
+        })))
     })
   }, []);
 
