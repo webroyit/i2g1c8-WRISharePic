@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import firebase from 'firebase';
 import { Button } from '@material-ui/core';
 
 import { db, storage } from '../firebase';
 
-function ImageUpload() {
+function ImageUpload({ username }) {
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
     const [caption, setCaption] = useState('');
@@ -39,7 +40,25 @@ function ImageUpload() {
             },
             () => {
                 // Complete function
-                
+
+                // Get the url of the image that was uploaded on firebase storage
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url => {
+                        // Add a post on firebase
+                        db.collection("posts").add({
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            caption: caption,
+                            imageUrl: url,       // Post image url inside firebase database
+                            username: username
+                        });
+
+                        setProgress(0);
+                        setCaption("");
+                        setImage(null);
+                    })
             }
         )
     }
