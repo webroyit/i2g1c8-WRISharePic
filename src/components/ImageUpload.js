@@ -19,6 +19,29 @@ function ImageUpload() {
         // 'ref' for the location to store the image on firebase
         // 'put' to store the image on firebase
         const uploadTask = storage.ref(`images/${image.name}`).put(image);
+        
+        // Upload Image on firebase is an asynchronous process
+        // 'on' for listener
+        uploadTask.on(
+            "state_changed",
+            snapshot => {
+                // Progress function
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+
+                setProgress(progress);
+            },
+            error => {
+                // Error function
+                console.log(error);
+                alert("Something went wrong");
+            },
+            () => {
+                // Complete function
+                
+            }
+        )
     }
 
     return (
@@ -32,6 +55,7 @@ function ImageUpload() {
             <Button onClick={handleUpload}>
                 Upload
             </Button>
+            <p>{progress}</p>
         </div>
     )
 }
