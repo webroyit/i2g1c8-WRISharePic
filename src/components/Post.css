@@ -2,6 +2,8 @@
     background-color: white;
     max-width: 500px;
     border: 1px solid lightblue;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 40px;
 }
 

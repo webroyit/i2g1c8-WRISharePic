@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Avatar from "@material-ui/core/Avatar"
 
+import { db } from '../firebase';
 import './Post.css'
 
-function Post({ imageUrl, username, caption }) {
+function Post({ postId, imageUrl, username, caption }) {
+    const [comments, setComments] = useState([]);
+
+    useEffect(() => {
+        let unsubscribe;
+
+        // Get the comments from a post on firebase
+        if (postId) {
+            unsubscribe = db
+                .collection("posts")
+                .doc(postId)
+                .collection("comments")
+                // Listen to the changes only for that post
+                .onSnapshot(snapshot => {
+                    setComments(snapshot.docs.map(doc => doc.data()));
+                })
+        }
+        return () => {
+            unsubscribe();
+        }
+    }, [postId]);
+
+    console.log(comments);
+
     return (
         <div className="post">
             <div className="post__header">
