@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Avatar from "@material-ui/core/Avatar"
+import firebase from 'firebase';
 
 import { db } from '../firebase';
 import './Post.css'
 
-function Post({ postId, imageUrl, username, caption }) {
+function Post({ postId, imageUrl, user, username, caption }) {
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
 
@@ -17,6 +18,7 @@ function Post({ postId, imageUrl, username, caption }) {
                 .collection("posts")
                 .doc(postId)
                 .collection("comments")
+                .orderBy('timestamp', 'desc')
                 // Listen to the changes only for that post
                 .onSnapshot(snapshot => {
                     setComments(snapshot.docs.map(doc => doc.data()));
@@ -26,6 +28,17 @@ function Post({ postId, imageUrl, username, caption }) {
             unsubscribe();
         }
     }, [postId]);
+
+    const postComment = event => {
+        event.preventDefault();
+
+        db.collection("posts").doc(postId).collection("comments").add({
+            text: comment,
+            username: user.displayName,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        setComment('');
+    }
 
     return (
         <div className="post">
@@ -65,6 +78,7 @@ function Post({ postId, imageUrl, username, caption }) {
                     className="post__button"
                     disabled={!comment}
                     type="submit"
+                    onClick={postComment}
                 >
                     Post
                 </button>

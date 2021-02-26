@@ -216,6 +216,7 @@ function App() {
             <Post
               key={id}
               postId={id}
+              user={user}
               imageUrl={post.imageUrl}
               username={post.username}
               caption={post.caption} />
