@@ -28,3 +28,27 @@
 .post__avatar {
     margin-right: 10px;
 }
+
+.post__commentBox {
+    display: flex;
+    margin-top: 10px;
+}
+
+.post__input {
+    /* Take up as much space as possible*/
+    flex: 1;
+
+    border: none;
+    padding: 10px;
+    border-top: 1px solid lightblue;
+}
+
+.post__button {
+    /* Take up as little space as possible*/
+    flex: 0;
+
+    border: none;
+    color: #6767bd;
+    background-color: transparent;
+    border-top: 1px solid lightblue;
+}
