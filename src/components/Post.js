@@ -5,6 +5,7 @@ import { db } from '../firebase';
 import './Post.css'
 
 function Post({ postId, imageUrl, username, caption }) {
+    const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
@@ -46,6 +47,22 @@ function Post({ postId, imageUrl, username, caption }) {
             <h4 className="post__text">
                 <strong>{username}: </strong>{caption}
             </h4>
+
+            <form>
+                <input
+                    className="post__input"
+                    placeholder="Add a comment..."
+                    type="text"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)} />
+                <button
+                    className="post__button"
+                    disabled={!comment}
+                    type="submit"
+                >
+                    Post
+                </button>
+            </form>
         </div>
     )
 }
