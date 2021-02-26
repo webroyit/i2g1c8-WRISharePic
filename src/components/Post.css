@@ -16,7 +16,7 @@
 
 .post__text {
     font-weight: normal;
-    padding: 15px 20px;
+    padding: 10px 20px;
 }
 
 .post__header {
@@ -32,6 +32,10 @@
 .post__commentBox {
     display: flex;
     margin-top: 10px;
+}
+
+.post__comments {
+    padding: 10px 20px;
 }
 
 .post__input {

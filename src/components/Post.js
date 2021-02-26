@@ -27,8 +27,6 @@ function Post({ postId, imageUrl, username, caption }) {
         }
     }, [postId]);
 
-    console.log(comments);
-
     return (
         <div className="post">
             <div className="post__header">
@@ -48,7 +46,15 @@ function Post({ postId, imageUrl, username, caption }) {
                 <strong>{username}: </strong>{caption}
             </h4>
 
-            <form>
+            <div className="post__comments">
+                {comments.map(comment => (
+                    <p>
+                        <strong>{comment.username}: </strong>{comment.text}
+                    </p>
+                ))}
+            </div>
+
+            <form className="post__commentBox">
                 <input
                     className="post__input"
                     placeholder="Add a comment..."
