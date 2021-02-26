@@ -6,10 +6,17 @@
   background-color: #e7ecf0;
 }
 
+.app__posts {
+  padding: 20px;
+}
+
 .app__header {
   background-color: white;
   border-bottom: 1px solid lightblue;
   padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .app__headerImage {
