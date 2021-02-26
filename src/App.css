@@ -11,6 +11,9 @@
 }
 
 .app__header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   background-color: white;
   border-bottom: 1px solid lightblue;
   padding: 5px;
